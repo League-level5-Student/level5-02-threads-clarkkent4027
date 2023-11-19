@@ -29,7 +29,7 @@ public class ThreadedGreeting {
 	//   Pass in a new object of the ThreadedGreeter class with the value of the member variable plus one.
 	
 	//4. Start the thread and join it with the calling thread.
-	
+		
 	public static void main(String[] args) {
 		//5. Create the first thread and initialize it with an object of the ThreadedGreeter class.
 		//   The ThreadedGreeter object should be initialized with 1.
