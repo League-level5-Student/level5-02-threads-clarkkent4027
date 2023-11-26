@@ -4,7 +4,7 @@ package _06_Wait_and_Notify.Practice;
  
 Below are two threads. One thread increments the counter
 and the other thread prints the result. If you run the
-program as it is, you'll notice that the output in not
+program as it is, you'll notice that the output is not
 sequential.
 
 Your goal is to modify the code inside the threads so that 
@@ -17,23 +17,40 @@ printed in order.
 
 public class SynchedSplitLoops {
 	static int counter = 0;
-	
+
 	public static void main(String[] args) {
+
 		Thread t1 = new Thread(() -> {
-			for(int i = 0; i < 100000; i++) {
-				counter++;
+			synchronized (SynchedSplitLoops.class) {
+				for (int i = 0; i < 100000; i++) {
+					counter++;
+					try {
+						SynchedSplitLoops.class.notify();
+						SynchedSplitLoops.class.wait();
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+				}
 			}
 		});
-		
+
 		Thread t2 = new Thread(() -> {
-			for(int i = 0; i < 100000; i++) {
+			synchronized (SynchedSplitLoops.class) {
+			for (int i = 0; i < 100000; i++) {
 				System.out.println(counter);
+				try {
+					SynchedSplitLoops.class.notify();
+					SynchedSplitLoops.class.wait();
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
 			}
 		});
-		
+
 		t1.start();
 		t2.start();
-		
+
 		try {
 			t1.join();
 			t2.join();

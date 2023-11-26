@@ -9,13 +9,16 @@ package _05_Synchronized_Swimming;
  */
 public class Swimmer extends Thread {
 	public final String name;
-
+SynchronizedSwimming S = new SynchronizedSwimming();
+	
 	public Swimmer(String name) {
 		this.name = name;
 	}
 
 	@Override
 	public void run() {
-		// ...
+for (int i = 0; i < 5; i++) {
+	S.takeTurn(this);
+}
 	}
 }
