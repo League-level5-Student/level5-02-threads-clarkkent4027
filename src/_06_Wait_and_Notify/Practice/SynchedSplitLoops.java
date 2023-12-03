@@ -24,10 +24,10 @@ public class SynchedSplitLoops {
 			synchronized (SynchedSplitLoops.class) {
 				for (int i = 0; i < 100000; i++) {
 					counter++;
+					SynchedSplitLoops.class.notify();
 					try {
-						SynchedSplitLoops.class.notify();
 						SynchedSplitLoops.class.wait();
-					} catch (Exception e) {
+					} catch (InterruptedException e) {
 						// TODO: handle exception
 					}
 				}
@@ -38,10 +38,10 @@ public class SynchedSplitLoops {
 			synchronized (SynchedSplitLoops.class) {
 			for (int i = 0; i < 100000; i++) {
 				System.out.println(counter);
+				SynchedSplitLoops.class.notify();
 				try {
-					SynchedSplitLoops.class.notify();
 					SynchedSplitLoops.class.wait();
-				} catch (Exception e) {
+				} catch (InterruptedException e) {
 					// TODO: handle exception
 				}
 			}
